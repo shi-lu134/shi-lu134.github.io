@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，我将用java解决三门问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三门问题">
+<meta property="og:url" content="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，我将用java解决三门问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T11:53:04.021Z">
+<meta property="article:modified_time" content="2021-05-05T15:15:23.462Z">
+<meta property="article:author" content="lu xiaohei">
+<meta property="article:tag" content="数据结构，C#，C语言，博客，鹿小黑">
+<meta name="twitter:card" content="summary"><title>三门问题 | Hexo</title><link ref="canonical" href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Hexo</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">三门问题</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-05-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-05-05</span></span></div></header><div class="post-body"><p>三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，<br>我将用java解决三门问题。<span id="more"></span></p>
+
+        <h2 id="三门问题概述"   >
+          <a href="#三门问题概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#三门问题概述" class="headerlink" title="三门问题概述"></a>三门问题概述</h2>
+      <p>&ensp;&ensp;&ensp;&ensp;三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，大致出自美国的电视游戏节目Let’s Make a Deal。问题名字来自该节目的主持人蒙提·霍尔（Monty Hall）。参赛者会看见三扇关闭了的门，其中一扇的后面有一辆汽车，选中后面有车的那扇门可赢得该汽车，另外两扇门后面则各藏有一只山羊。当参赛者选定了一扇门，但未去开启它的时候，节目主持人开启剩下两扇门的其中一扇，露出其中一只山羊。主持人其后会问参赛者要不要换另一扇仍然关上的门。问题是：换另一扇门是否会增加参赛者赢得汽车的机率。如果严格按照上述的条件，那么答案是会。不换门的话，赢得汽车的几率是1/3。换门的话，赢得汽车的几率是2/3。</p>
+
+        <h2 id="解决方法：蒙特·卡罗方法"   >
+          <a href="#解决方法：蒙特·卡罗方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#解决方法：蒙特·卡罗方法" class="headerlink" title="解决方法：蒙特·卡罗方法"></a>解决方法：蒙特·卡罗方法</h2>
+      <p>蒙特·卡罗方法（Monte Carlo method），也称统计模拟方法，是二十世纪四十年代中期由于科学技术的发展和电子计算机的发明，而被提出的一种以概率统计理论为指导的一类非常重要的数值计算方法。当所求解问题是某种随机事件出现的概率，或者是某个随机变量的期望值时，通过某种“实验”的方法，以这种事件出现的频率估计这一随机事件的概率，或者得到这个随机变量的某些数字特征，并将其作为问题的解。</p>
+<blockquote>
+<p>也就是，用多次随机试验的事件出现频率来近似作为事件发生的概率。</p>
+</blockquote>
+
+        <h2 id="代码实现"   >
+          <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>
+      <pre><code>import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
+/三门
+class ThreeDoor &#123;
+    String[] threeDoor = new String[3]; //三门
+
+//设置门后的奖品
+public void setPrize() &#123;
+    int carPosition = (int)(Math.random()*100)%3;
+
+    threeDoor[0] = &quot;Goat&quot;;
+    threeDoor[1] = &quot;Goat&quot;;
+    threeDoor[2] = &quot;Goat&quot;;
+    threeDoor[carPosition] = &quot;Car&quot;;
+    &#125;
+&#125;
+
+//玩家
+class Player &#123;
+    int firstChoicePosition = 0;  //首次选择的门
+    int lastChoicePosition = 0;   //最终选择的门
+
+    //选择一个门
+     public void choiceDoor() &#123;
+       firstChoicePosition = (int)(Math.random()*100)%3;
+      lastChoicePosition = firstChoicePosition;
+    &#125;
+
+//更换为另一个门
+public void changeDoor(int firstGoatPosition) &#123;
+     lastChoicePositio=3-firstChoicePosition-firstGoatPosition;
+    &#125;
+&#125;   
+
+//主持人
+class Presenter &#123;
+    int firstGoatPosition = 0;  //主持人打开的门
+
+    //打开后面为山羊的门
+    public void openFirstGoatPosition (String[] threeDoor,int playerFirstChoicePosition) &#123;
+        if(threeDoor[playerFirstChoicePosition].equals(&quot;Car&quot;)) &#123;
+        do 
+        &#123;
+        firstGoatPosition = (int)(Math.random()*100)%3;
+        &#125; while (firstGoatPosition == playerFirstChoicePosition);
+        &#125; 
+        else &#123;
+    for(int i=0;i&lt;3;i++)
+        if(!threeDoor[i].equals(&quot;Car&quot;) &amp;&amp; i!=playerFirstChoicePosition)
+      firstGoatPosition = i;
+        &#125;
+    &#125;
+&#125;
+
+//计分牌
+class Scorer &#123;
+    int playCount = 0;        //玩的总次数
+    int choiceCarCount = 0;   //获得车的次数
+    int choiceGoatCount = 0;  //获得山羊的次数
+
+    //计分
+    public void score(String[] threeDoor,int playLastChoicePosition) &#123;
+    playCount++;
+    if(threeDoor[playLastChoicePosition].equals(&quot;Car&quot;))
+        choiceCarCount++;
+    else
+  choiceGoatCount++;
+&#125;
+
+//计算获得车的概率
+public void statistics() &#123;
+    DecimalFormat df = new DecimalFormat(&quot;##.00%&quot;);
+    System.out.println(&quot;Choice Goat Count: &quot; + choiceGoatCount);
+    System.out.println(&quot;Choice Car  Count: &quot; + choiceCarCount);
+    System.out.println(&quot;Choice Car  Rate : &quot; + df.format((float)choiceCarCount/playCount));
+    &#125;
+&#125;
+
+//设置模式
+class Moder &#123;
+    String mode = &quot;&quot;;       //模式，A：换门，B：不换门
+    int playTotalCount = 0; //玩的总次数
+
+    //设置模式
+    public void setMode() &#123;
+    Scanner sc = new Scanner(System.in);
+
+    //设置选门模式
+    while(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;)) &#123;
+        System.out.println(&quot;Plase input mode: A[Change]  B[Don&#39;t Change]&quot;);
+    mode = sc.nextLine();
+        if(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;))
+            System.out.println(&quot;Input Error, Input again.&quot;);
+    &#125;
+
+//设置玩的总次数
+while(playTotalCount&lt;=0) &#123;
+  System.out.println(&quot;Plase input play total count: &quot;);
+  try &#123;
+    Scanner scCnt = new Scanner(System.in);
+    playTotalCount = scCnt.nextInt();
+  &#125; catch(Exception e) &#123;
+    playTotalCount = 0;
+  &#125;
+  if(playTotalCount&lt;=0)
+    System.out.println(&quot;Input Error, Input again.&quot;);
+&#125;
+
+System.out.println();
+&#125;
+//显示设置的模式
+public void showMode() &#123;
+        if(mode.equals(&quot;A&quot;))
+            System.out.println(&quot;Mode: [Change]&quot;);
+        else
+            System.out.println(&quot;Mode: [Don&#39;t Change]&quot;);
+
+    System.out.println(&quot;Play Total Count: &quot; + playTotalCount);
+    System.out.println();
+    &#125;
+&#125;
+
+//main程序
+class ThreeDoorDemo &#123;
+    public static void main(String[] args) &#123;
+        ThreeDoor threeDoor = new ThreeDoor();  //三门
+        Player player = new Player();           //玩家
+        Presenter presenter = new Presenter();  //主持人
+        Scorer scorer = new Scorer();           //计分者
+        Moder moder = new Moder();              //设置模式者
+
+        moder.setMode();  //设置模式
+        moder.showMode(); //显示模式
+
+        //循环玩多次
+        for(int i=0; i&lt;moder.playTotalCount; i++) &#123;
+        threeDoor.setPrize(); //设置门后奖品
+        player.choiceDoor();  //玩家选择一个门
+        //主持人打开一扇是山羊的门
+        presenter.openFirstGoatPosition(threeDoor.threeDoor,player.firstChoicePosition);
+        if(moder.mode.equals(&quot;A&quot;))
+        player.changeDoor(presenter.firstGoatPosition); //玩家换另外一扇门
+        //计分
+            scorer.score(threeDoor.threeDoor,player. LastChoicePosition);
+    &#125;
+
+    scorer.statistics();  //统计获得汽车的概率
+    &#125;
+&#125;
+</code></pre>
+
+        <h2 id="实验结果"   >
+          <a href="#实验结果" class="heading-link"><i class="fas fa-link"></i></a><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2>
+      
+        <h3 id="换门结果："   >
+          <a href="#换门结果：" class="heading-link"><i class="fas fa-link"></i></a><a href="#换门结果：" class="headerlink" title="换门结果："></a>换门结果：</h3>
+      <pre><code>Plase input mode: A[Change]  B[Don&#39;t Change]
+A
+Plase input play total count: 
+100000
+Mode: [Change]
+Play Total Count: 100000
+Choice Goat Count: 33289
+Choice Car  Count: 66711
+Choice Car  Rate : 66.71%
+</code></pre>
+
+        <h3 id="不换门结果："   >
+          <a href="#不换门结果：" class="heading-link"><i class="fas fa-link"></i></a><a href="#不换门结果：" class="headerlink" title="不换门结果："></a>不换门结果：</h3>
+      <pre><code>Plase input mode: A[Change]  B[Don&#39;t Change]
+B
+Plase input play total count: 
+100000
+Mode: [Don&#39;t Change]
+Play Total Count: 100000
+Choice Goat Count: 66489
+Choice Car  Count: 33511
+Choice Car  Rate : 33.51%
+</code></pre>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+      <p>在游戏开始的时候，1，2，3号门中奖的概率是相等的，都是1/3</p>
+<blockquote>
+<p>P（1号门中奖）+P(2号门中奖）+P（3号门中奖）=1</p>
+</blockquote>
+<p>当玩家选择了1号门时，玩家中奖的概率即为1/3</p>
+<blockquote>
+<p>P（1号门中奖）=1/3</p>
+</blockquote>
+<p>那剩下的2，3号门的中奖概率就为2/3</p>
+<blockquote>
+<p>P（2号门中奖)+P(3号门中奖)=2/3</p>
+</blockquote>
+<p>此时，主持人将2号和3号门中没有奖的2号门打开了，并确认地告诉你这个门没有奖，则2号门中奖的概率为0，那3号门中奖的概率为2/3，即为玩家选择的1号门的两倍</p>
+<blockquote>
+<p>P(2号门中奖)=0=&gt;P(3号门中奖）=2/3</p>
+</blockquote>
+<p>所以当玩家换3号门时中奖概率为2/3，不换门时中奖概率为1/3</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://example.com">lu xiaohei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/">http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"><span class="paginator-prev__text">我的第一篇博客</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          三门问题概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A%E8%92%99%E7%89%B9%C2%B7%E5%8D%A1%E7%BD%97%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">
+          解决方法：蒙特·卡罗方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">
+          代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">
+          实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%A2%E9%97%A8%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">
+          换门结果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E6%8D%A2%E9%97%A8%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">
+          不换门结果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">归档</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>lu xiaohei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
