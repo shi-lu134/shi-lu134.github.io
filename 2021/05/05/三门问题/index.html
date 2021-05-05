@@ -8,13 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="鹿小黑的博客">
-<meta property="og:type" content="website">
+  <meta name="description" content="三门问题三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，我将用java解决三门问题。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="鹿小黑的博客">
+<meta property="og:description" content="三门问题三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，我将用java解决三门问题。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T11:53:04.021Z">
+<meta property="article:modified_time" content="2021-05-05T13:39:39.611Z">
 <meta property="article:author" content="lu xiaohei">
 <meta property="article:tag" content="数据结构，C#，C语言，博客，鹿小黑">
 <meta name="twitter:card" content="summary">
@@ -157,19 +159,236 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-三门问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-三门问题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="三门问题"><a href="#三门问题" class="headerlink" title="三门问题"></a>三门问题</h1><p>三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，<br>我将用java解决三门问题。
-        
-          <a class="article-more-a" href="/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/#more">more >></a>
-        
+        <h1 id="三门问题"><a href="#三门问题" class="headerlink" title="三门问题"></a>三门问题</h1><p>三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，<br>我将用java解决三门问题。<span id="more"></span></p>
+<h2 id="三门问题概述"><a href="#三门问题概述" class="headerlink" title="三门问题概述"></a>三门问题概述</h2><p>&ensp;&ensp;&ensp;&ensp;三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，大致出自美国的电视游戏节目Let’s Make a Deal。问题名字来自该节目的主持人蒙提·霍尔（Monty Hall）。参赛者会看见三扇关闭了的门，其中一扇的后面有一辆汽车，选中后面有车的那扇门可赢得该汽车，另外两扇门后面则各藏有一只山羊。当参赛者选定了一扇门，但未去开启它的时候，节目主持人开启剩下两扇门的其中一扇，露出其中一只山羊。主持人其后会问参赛者要不要换另一扇仍然关上的门。问题是：换另一扇门是否会增加参赛者赢得汽车的机率。如果严格按照上述的条件，那么答案是会。不换门的话，赢得汽车的几率是1/3。换门的话，赢得汽车的几率是2/3。</p>
+<h2 id="解决方法：蒙特·卡罗方法"><a href="#解决方法：蒙特·卡罗方法" class="headerlink" title="解决方法：蒙特·卡罗方法"></a>解决方法：蒙特·卡罗方法</h2><p>蒙特·卡罗方法（Monte Carlo method），也称统计模拟方法，是二十世纪四十年代中期由于科学技术的发展和电子计算机的发明，而被提出的一种以概率统计理论为指导的一类非常重要的数值计算方法。当所求解问题是某种随机事件出现的概率，或者是某个随机变量的期望值时，通过某种“实验”的方法，以这种事件出现的频率估计这一随机事件的概率，或者得到这个随机变量的某些数字特征，并将其作为问题的解。</p>
+<blockquote>
+<p>也就是，用多次随机试验的事件出现频率来近似作为事件发生的概率。</p>
+</blockquote>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><pre><code>import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
+/三门
+class ThreeDoor &#123;
+    String[] threeDoor = new String[3]; //三门
+
+//设置门后的奖品
+public void setPrize() &#123;
+    int carPosition = (int)(Math.random()*100)%3;
+
+    threeDoor[0] = &quot;Goat&quot;;
+    threeDoor[1] = &quot;Goat&quot;;
+    threeDoor[2] = &quot;Goat&quot;;
+    threeDoor[carPosition] = &quot;Car&quot;;
+    &#125;
+&#125;
+
+//玩家
+class Player &#123;
+    int firstChoicePosition = 0;  //首次选择的门
+    int lastChoicePosition = 0;   //最终选择的门
+
+    //选择一个门
+     public void choiceDoor() &#123;
+       firstChoicePosition = (int)(Math.random()*100)%3;
+      lastChoicePosition = firstChoicePosition;
+    &#125;
+
+//更换为另一个门
+public void changeDoor(int firstGoatPosition) &#123;
+     lastChoicePositio=3-firstChoicePosition-firstGoatPosition;
+    &#125;
+&#125;   
+
+//主持人
+class Presenter &#123;
+    int firstGoatPosition = 0;  //主持人打开的门
+
+    //打开后面为山羊的门
+    public void openFirstGoatPosition (String[] threeDoor,int playerFirstChoicePosition) &#123;
+        if(threeDoor[playerFirstChoicePosition].equals(&quot;Car&quot;)) &#123;
+        do 
+        &#123;
+        firstGoatPosition = (int)(Math.random()*100)%3;
+        &#125; while (firstGoatPosition == playerFirstChoicePosition);
+        &#125; 
+        else &#123;
+    for(int i=0;i&lt;3;i++)
+        if(!threeDoor[i].equals(&quot;Car&quot;) &amp;&amp; i!=playerFirstChoicePosition)
+      firstGoatPosition = i;
+        &#125;
+    &#125;
+&#125;
+
+//计分牌
+class Scorer &#123;
+    int playCount = 0;        //玩的总次数
+    int choiceCarCount = 0;   //获得车的次数
+    int choiceGoatCount = 0;  //获得山羊的次数
+
+    //计分
+    public void score(String[] threeDoor,int playLastChoicePosition) &#123;
+    playCount++;
+    if(threeDoor[playLastChoicePosition].equals(&quot;Car&quot;))
+        choiceCarCount++;
+    else
+  choiceGoatCount++;
+&#125;
+
+//计算获得车的概率
+public void statistics() &#123;
+    DecimalFormat df = new DecimalFormat(&quot;##.00%&quot;);
+    System.out.println(&quot;Choice Goat Count: &quot; + choiceGoatCount);
+    System.out.println(&quot;Choice Car  Count: &quot; + choiceCarCount);
+    System.out.println(&quot;Choice Car  Rate : &quot; + df.format((float)choiceCarCount/playCount));
+    &#125;
+&#125;
+
+//设置模式
+class Moder &#123;
+    String mode = &quot;&quot;;       //模式，A：换门，B：不换门
+    int playTotalCount = 0; //玩的总次数
+
+    //设置模式
+    public void setMode() &#123;
+    Scanner sc = new Scanner(System.in);
+
+    //设置选门模式
+    while(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;)) &#123;
+        System.out.println(&quot;Plase input mode: A[Change]  B[Don&#39;t Change]&quot;);
+    mode = sc.nextLine();
+        if(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;))
+            System.out.println(&quot;Input Error, Input again.&quot;);
+    &#125;
+
+//设置玩的总次数
+while(playTotalCount&lt;=0) &#123;
+  System.out.println(&quot;Plase input play total count: &quot;);
+  try &#123;
+    Scanner scCnt = new Scanner(System.in);
+    playTotalCount = scCnt.nextInt();
+  &#125; catch(Exception e) &#123;
+    playTotalCount = 0;
+  &#125;
+  if(playTotalCount&lt;=0)
+    System.out.println(&quot;Input Error, Input again.&quot;);
+&#125;
+
+System.out.println();
+</code></pre>
+<p>  }</p>
+<pre><code>//显示设置的模式
+public void showMode() &#123;
+        if(mode.equals(&quot;A&quot;))
+            System.out.println(&quot;Mode: [Change]&quot;);
+        else
+            System.out.println(&quot;Mode: [Don&#39;t Change]&quot;);
+
+    System.out.println(&quot;Play Total Count: &quot; + playTotalCount);
+    System.out.println();
+    &#125;
+&#125;
+
+//main程序
+class ThreeDoorDemo &#123;
+    public static void main(String[] args) &#123;
+        ThreeDoor threeDoor = new ThreeDoor();  //三门
+        Player player = new Player();           //玩家
+        Presenter presenter = new Presenter();  //主持人
+        Scorer scorer = new Scorer();           //计分者
+        Moder moder = new Moder();              //设置模式者
+
+        moder.setMode();  //设置模式
+        moder.showMode(); //显示模式
+
+        //循环玩多次
+        for(int i=0; i&lt;moder.playTotalCount; i++) &#123;
+        threeDoor.setPrize(); //设置门后奖品
+        player.choiceDoor();  //玩家选择一个门
+        //主持人打开一扇是山羊的门
+        presenter.openFirstGoatPosition(threeDoor.threeDoor,player.firstChoicePosition);
+        if(moder.mode.equals(&quot;A&quot;))
+        player.changeDoor(presenter.firstGoatPosition); //玩家换另外一扇门
+        //计分
+            scorer.score(threeDoor.threeDoor,player. LastChoicePosition);
+    &#125;
+
+    scorer.statistics();  //统计获得汽车的概率
+    &#125;
+&#125;
+</code></pre>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="换门结果："><a href="#换门结果：" class="headerlink" title="换门结果："></a>换门结果：</h3><pre><code>Plase input mode: A[Change]  B[Don&#39;t Change]
+A
+Plase input play total count: 
+100000
+Mode: [Change]
+Play Total Count: 100000
+Choice Goat Count: 33289
+Choice Car  Count: 66711
+Choice Car  Rate : 66.71%
+</code></pre>
+<h3 id="不换门结果："><a href="#不换门结果：" class="headerlink" title="不换门结果："></a>不换门结果：</h3><pre><code>Plase input mode: A[Change]  B[Don&#39;t Change]
+B
+Plase input play total count: 
+100000
+Mode: [Don&#39;t Change]
+Play Total Count: 100000
+Choice Goat Count: 66489
+Choice Car  Count: 33511
+Choice Car  Rate : 33.51%
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在游戏开始的时候，1，2，3号门中奖的概率是相等的，都是1/3</p>
+<blockquote>
+<p>P（1号门中奖）+P(2号门中奖）+P（3号门中奖）=1</p>
+</blockquote>
+<p>当玩家选择了1号门时，玩家中奖的概率即为1/3</p>
+<blockquote>
+<p>P（1号门中奖）=1/3</p>
+</blockquote>
+<p>那剩下的2，3号门的中奖概率就为2/3</p>
+<blockquote>
+<p>P（2号门中奖)+P(3号门中奖)=2/3</p>
+</blockquote>
+<p>此时，主持人将2号和3号门中没有奖的2号门打开了，并确认地告诉你这个门没有奖，则2号门中奖的概率为0，那3号门中奖的概率为2/3，即为玩家选择的1号门的两倍</p>
+<blockquote>
+<p>P(2号门中奖)=0=&gt;P(3号门中奖）=2/3</p>
+</blockquote>
+<p>所以当玩家换3号门时中奖概率为2/3，不换门时中奖概率为1/3</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -178,16 +397,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -207,124 +485,14 @@
 
 
 
-
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h1><h2 id="个人博客介绍"><a href="#个人博客介绍" class="headerlink" title="个人博客介绍"></a>个人博客介绍</h2> <p>这是鹿小黑的个人博客。</p>
- 本博客使用Hexo搭建,域名为[www.luxiaohei.top](https://www.luxiaohei.top/ '鹿小黑的博客')
-        
-          <a class="article-more-a" href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/04/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2021/05/04/hello-world/" class="archive-article-date">
-  	<time datetime="2021-05-04T14:20:44.077Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-          <a class="article-more-a" href="/2021/05/04/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/04/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -347,8 +515,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
