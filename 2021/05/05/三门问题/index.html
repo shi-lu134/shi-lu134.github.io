@@ -2,27 +2,28 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="三门问题">
 <meta property="og:url" content="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Lu Xiaohei&#39;s Blog">
 <meta property="og:description" content="三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，我将用java解决三门问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-05T11:53:04.021Z">
-<meta property="article:modified_time" content="2021-05-05T15:15:23.462Z">
-<meta property="article:author" content="lu xiaohei">
-<meta property="article:tag" content="数据结构，C#，C语言，博客，鹿小黑">
-<meta name="twitter:card" content="summary"><title>三门问题 | Hexo</title><link ref="canonical" href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta property="article:modified_time" content="2021-05-06T16:59:41.769Z">
+<meta property="article:author" content="Lu Xiaohei">
+<meta property="article:tag" content="统计">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary"><title>三门问题 | Lu Xiaohei's Blog</title><link ref="canonical" href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
   assistSearch: undefined,
   fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
   sidebar: {"offsetTop":"20px","tocMaxDepth":6},
-  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
   postWidget: {"endText":true},
   nightMode: {"enable":true},
   back2top: {"enable":true},
-  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  codeblock: {"style":"default","highlight":"dark","wordWrap":false},
   reward: false,
-  fancybox: false,
+  fancybox: true,
   zoomImage: {"gapAside":"20px"},
   galleryWaterfall: undefined,
   lazyload: false,
@@ -33,8 +34,7 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Hexo</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">三门问题</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-05-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-05-05</span></span></div></header><div class="post-body"><p>三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，<br>我将用java解决三门问题。<span id="more"></span></p>
-
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-users"></i></span><span class="header-nav-menu-item__text">故事</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/daily/"><span class="header-nav-submenu-item__icon"><i class="origin:D"></i></span><span class="header-nav-submenu-item__text">日常</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/love/"><span class="header-nav-submenu-item__icon"><i class="origin:爱"></i></span><span class="header-nav-submenu-item__text">爱情</span></a></div></div></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner" style="background: url(/images/sunset.jpg) no-repeat center/cover;"><div class="header-banner-info"><div class="header-banner-info__title">Lu Xiaohei's Blog</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">三门问题</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-05-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-05-07</span></span></div></header><div class="post-body">
         <h2 id="三门问题概述"   >
           <a href="#三门问题概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#三门问题概述" class="headerlink" title="三门问题概述"></a>三门问题概述</h2>
       <p>&ensp;&ensp;&ensp;&ensp;三门问题（Monty Hall problem）亦称为蒙提霍尔问题、蒙特霍问题或蒙提霍尔悖论，大致出自美国的电视游戏节目Let’s Make a Deal。问题名字来自该节目的主持人蒙提·霍尔（Monty Hall）。参赛者会看见三扇关闭了的门，其中一扇的后面有一辆汽车，选中后面有车的那扇门可赢得该汽车，另外两扇门后面则各藏有一只山羊。当参赛者选定了一扇门，但未去开启它的时候，节目主持人开启剩下两扇门的其中一扇，露出其中一只山羊。主持人其后会问参赛者要不要换另一扇仍然关上的门。问题是：换另一扇门是否会增加参赛者赢得汽车的机率。如果严格按照上述的条件，那么答案是会。不换门的话，赢得汽车的几率是1/3。换门的话，赢得汽车的几率是2/3。</p>
@@ -48,155 +48,135 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 
         <h2 id="代码实现"   >
           <a href="#代码实现" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2>
-      <pre><code>import java.util.Scanner;
+      <pre><code>package 三门问题;
+import java.util.Scanner;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-
-/三门
-class ThreeDoor &#123;
-    String[] threeDoor = new String[3]; //三门
-
-//设置门后的奖品
-public void setPrize() &#123;
-    int carPosition = (int)(Math.random()*100)%3;
-
-    threeDoor[0] = &quot;Goat&quot;;
-    threeDoor[1] = &quot;Goat&quot;;
-    threeDoor[2] = &quot;Goat&quot;;
-    threeDoor[carPosition] = &quot;Car&quot;;
+//三门
+class ThreeDoor&#123;
+    String[] threeDoor = new String[3];
+    //设置门后的奖品
+    public void setPrize() &#123;
+        int carPosition = (int )(Math.random()*10)%3;
+        threeDoor[0] = &quot;Goat&quot;;
+        threeDoor[1] = &quot;Goat&quot;;
+        threeDoor[2] = &quot;Goat&quot;;
+        threeDoor[carPosition] = &quot;Car&quot;;
     &#125;
 &#125;
-
-//玩家
-class Player &#123;
-    int firstChoicePosition = 0;  //首次选择的门
-    int lastChoicePosition = 0;   //最终选择的门
-
+class Player&#123;
+    int firstChoicePosition = (int )(Math.random()*10)%3;
+    int lastChoicePosition = firstChoicePosition;
     //选择一个门
-     public void choiceDoor() &#123;
-       firstChoicePosition = (int)(Math.random()*100)%3;
-      lastChoicePosition = firstChoicePosition;
+    public void choiceDoor() &#123;
+        irstChoicePosition = (int)(Math.random()*100)%3;
+        lastChoicePosition = firstChoicePosition;
     &#125;
-
-//更换为另一个门
-public void changeDoor(int firstGoatPosition) &#123;
-     lastChoicePositio=3-firstChoicePosition-firstGoatPosition;
+    //更换为另一个门
+    public void changeDoor(int firstGoatPosition) &#123;
+        lastChoicePosition = 3 - firstChoicePosition - firstGoatPosition;
     &#125;
-&#125;   
-
+&#125;
 //主持人
-class Presenter &#123;
-    int firstGoatPosition = 0;  //主持人打开的门
-
+class Presenter&#123;
+    int firstGoatPosition = 0;//主持人打开的门
     //打开后面为山羊的门
-    public void openFirstGoatPosition (String[] threeDoor,int playerFirstChoicePosition) &#123;
-        if(threeDoor[playerFirstChoicePosition].equals(&quot;Car&quot;)) &#123;
-        do 
-        &#123;
-        firstGoatPosition = (int)(Math.random()*100)%3;
-        &#125; while (firstGoatPosition == playerFirstChoicePosition);
-        &#125; 
+    public void openFirstGoatPosition(String[] threeDoor,int playFirstChoicePosition) &#123;
+        if (threeDoor[playFirstChoicePosition].equals(&quot;Car&quot;)) &#123;
+            do &#123;
+                firstGoatPosition=(int )(Math.random()*10)%3;
+            &#125; while (firstGoatPosition==playFirstChoicePosition);
+        &#125;
         else &#123;
-    for(int i=0;i&lt;3;i++)
-        if(!threeDoor[i].equals(&quot;Car&quot;) &amp;&amp; i!=playerFirstChoicePosition)
-      firstGoatPosition = i;
+            for(int i=0;i&lt;3;i++)
+                if (!threeDoor[i].equals(&quot;Car&quot;)&amp;&amp;i!=playFirstChoicePosition) &#123;
+                    firstGoatPosition=i;
+            &#125;
         &#125;
     &#125;
 &#125;
-
 //计分牌
-class Scorer &#123;
-    int playCount = 0;        //玩的总次数
-    int choiceCarCount = 0;   //获得车的次数
-    int choiceGoatCount = 0;  //获得山羊的次数
-
+class Scorer&#123;
+    int playCount = 0;//玩的总次数
+    int choiceCarCount = 0;//获得车的次数
+    int choiceGoatCount = 0;//获得山羊的次数
     //计分
     public void score(String[] threeDoor,int playLastChoicePosition) &#123;
-    playCount++;
-    if(threeDoor[playLastChoicePosition].equals(&quot;Car&quot;))
+        playCount++;
+        if (threeDoor[playLastChoicePosition].equals(&quot;Car&quot;)) &#123;
         choiceCarCount++;
-    else
-  choiceGoatCount++;
-&#125;
-
-//计算获得车的概率
-public void statistics() &#123;
-    DecimalFormat df = new DecimalFormat(&quot;##.00%&quot;);
-    System.out.println(&quot;Choice Goat Count: &quot; + choiceGoatCount);
-    System.out.println(&quot;Choice Car  Count: &quot; + choiceCarCount);
-    System.out.println(&quot;Choice Car  Rate : &quot; + df.format((float)choiceCarCount/playCount));
+        &#125;
+        else &#123;
+        choiceGoatCount++;
+        &#125;
+    &#125;
+    //获得车的概率
+    public void statistics() &#123;
+        DecimalFormat df=new DecimalFormat(&quot;##.00%&quot;);
+        System.out.println(&quot;Choice Goat Count: &quot; + choiceGoatCount);
+        System.out.println(&quot;Choice Car  Count: &quot; + choiceCarCount);
+        System.out.println(&quot;Choice Car  Rate : &quot; + df.format((float)choiceCarCount/playCount));
     &#125;
 &#125;
-
 //设置模式
-class Moder &#123;
-    String mode = &quot;&quot;;       //模式，A：换门，B：不换门
-    int playTotalCount = 0; //玩的总次数
-
+class Moder&#123;
+    String mode = &quot;&quot;;//模式A：换门 B：不换门
+    int playTotalCount = 0;//玩的总次数
     //设置模式
     public void setMode() &#123;
-    Scanner sc = new Scanner(System.in);
-
-    //设置选门模式
-    while(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;)) &#123;
-        System.out.println(&quot;Plase input mode: A[Change]  B[Don&#39;t Change]&quot;);
-    mode = sc.nextLine();
-        if(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;))
-            System.out.println(&quot;Input Error, Input again.&quot;);
+        Scanner sc = new Scanner(System.in);
+        //设置选门模式
+        while (!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;)) &#123;
+            System.out.println(&quot;Plase input mode: A[Change]  B[Don&#39;t Change]&quot;);
+            mode = sc.nextLine();
+            if(!mode.equals(&quot;A&quot;) &amp;&amp; !mode.equals(&quot;B&quot;))
+                System.out.println(&quot;Input Error, Input again.&quot;);
+        &#125;
+        //设置玩的总次数
+        while (playTotalCount&lt;=0) &#123;
+            System.out.println(&quot;Plase input play total count: &quot;);
+            try &#123;
+                Scanner scCnt = new Scanner(System.in);
+                playTotalCount = scCnt.nextInt();
+            &#125; catch (Exception e) &#123;
+                playTotalCount=0;
+            &#125;
+            if(playTotalCount&lt;=0)
+                System.out.println(&quot;Input Error, Input again.&quot;);
+        &#125;
+        System.out.println();
     &#125;
-
-//设置玩的总次数
-while(playTotalCount&lt;=0) &#123;
-  System.out.println(&quot;Plase input play total count: &quot;);
-  try &#123;
-    Scanner scCnt = new Scanner(System.in);
-    playTotalCount = scCnt.nextInt();
-  &#125; catch(Exception e) &#123;
-    playTotalCount = 0;
-  &#125;
-  if(playTotalCount&lt;=0)
-    System.out.println(&quot;Input Error, Input again.&quot;);
-&#125;
-
-System.out.println();
-&#125;
-//显示设置的模式
-public void showMode() &#123;
+    public void showMode() &#123;
         if(mode.equals(&quot;A&quot;))
             System.out.println(&quot;Mode: [Change]&quot;);
         else
             System.out.println(&quot;Mode: [Don&#39;t Change]&quot;);
-
-    System.out.println(&quot;Play Total Count: &quot; + playTotalCount);
-    System.out.println();
+        System.out.println(&quot;Play Total Count: &quot; + playTotalCount);
+        System.out.println();
     &#125;
 &#125;
-
-//main程序
-class ThreeDoorDemo &#123;
+//测试
+public class Test &#123;
     public static void main(String[] args) &#123;
         ThreeDoor threeDoor = new ThreeDoor();  //三门
         Player player = new Player();           //玩家
         Presenter presenter = new Presenter();  //主持人
         Scorer scorer = new Scorer();           //计分者
         Moder moder = new Moder();              //设置模式者
-
         moder.setMode();  //设置模式
         moder.showMode(); //显示模式
-
         //循环玩多次
         for(int i=0; i&lt;moder.playTotalCount; i++) &#123;
-        threeDoor.setPrize(); //设置门后奖品
-        player.choiceDoor();  //玩家选择一个门
-        //主持人打开一扇是山羊的门
-        presenter.openFirstGoatPosition(threeDoor.threeDoor,player.firstChoicePosition);
-        if(moder.mode.equals(&quot;A&quot;))
-        player.changeDoor(presenter.firstGoatPosition); //玩家换另外一扇门
-        //计分
-            scorer.score(threeDoor.threeDoor,player. LastChoicePosition);
-    &#125;
-
-    scorer.statistics();  //统计获得汽车的概率
+            threeDoor.setPrize(); //设置门后奖品
+            player.choiceDoor();  //玩家选择一个门
+            //主持人打开一扇是山羊的门
+            presenter.openFirstGoatPosition(threeDoor.threeDoor,player.firstChoicePosition);
+            if(moder.mode.equals(&quot;A&quot;))
+                player.changeDoor(presenter.firstGoatPosition); //玩家换另外一扇门
+            //计分
+            scorer.score(threeDoor.threeDoor,player.lastChoicePosition);
+        &#125;
+        scorer.statistics();  //统计获得汽车的概率
     &#125;
 &#125;
 </code></pre>
@@ -249,11 +229,11 @@ Choice Car  Rate : 33.51%
 <p>P(2号门中奖)=0=&gt;P(3号门中奖）=2/3</p>
 </blockquote>
 <p>所以当玩家换3号门时中奖概率为2/3，不换门时中奖概率为1/3</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://example.com">lu xiaohei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/">http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"><span class="paginator-prev__text">我的第一篇博客</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://example.com">Lu Xiaohei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/">http://example.com/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E7%BB%9F%E8%AE%A1/">统计</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E5%AE%9E%E9%AA%8C/">实验</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"><span class="paginator-prev__text">博客介绍</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
           三门问题概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A%E8%92%99%E7%89%B9%C2%B7%E5%8D%A1%E7%BD%97%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">
           解决方法：蒙特·卡罗方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">
           代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">
           实验结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%A2%E9%97%A8%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">
           换门结果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E6%8D%A2%E9%97%A8%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">
           不换门结果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">
-          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">hello world</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">归档</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>lu xiaohei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/头像.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Lu Xiaohei</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="/images/wechat.png" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1147300279" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:1147300279@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">邮</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Lu Xiaohei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
