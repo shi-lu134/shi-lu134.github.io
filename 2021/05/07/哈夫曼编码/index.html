@@ -6,7 +6,7 @@
 <meta property="og:description" content="介绍哈夫曼树，并用C语言实现哈夫曼编码。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-07T04:24:03.000Z">
-<meta property="article:modified_time" content="2021-05-07T06:11:49.567Z">
+<meta property="article:modified_time" content="2021-05-07T06:34:53.222Z">
 <meta property="article:author" content="Lu Xiaohei">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="数据结构">
@@ -52,168 +52,171 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
         <h3 id="哈夫曼树的构造"   >
           <a href="#哈夫曼树的构造" class="heading-link"><i class="fas fa-link"></i></a><a href="#哈夫曼树的构造" class="headerlink" title="哈夫曼树的构造"></a>哈夫曼树的构造</h3>
       <ul>
-<li><p>第1步：创建森林，森林包括5棵树，这5棵树的权值分别是5,6,7,8,15。</p>
-</li>
-<li><p>第2步：在森林中，选择根节点权值最小的两棵树(5和6)来进行合并，将它们作为一颗新树的左右孩子(谁左谁右无关紧要，这里，我们选择较小的作为左孩子)，并且新树的权值是左右孩子的权值之和。即，新树的权值是11。 然后，将”树5”和”树6”从森林中删除，并将新的树(树11)添加到森林中。</p>
-</li>
-<li><p>第三步：重复第二步。</p>
-
+<li>第1步：创建森林，森林包括5棵树，这5棵树的权值分别是5,6,7,8,15。</li>
+<li>第2步：在森林中，选择根节点权值最小的两棵树(5和6)来进行合并，将它们作为一颗新树的左右孩子(谁左谁右无关紧要，这里，我们选择较小的作为左孩子)，并且新树的权值是左右孩子的权值之和。即，新树的权值是11。 然后，将”树5”和”树6”从森林中删除，并将新的树(树11)添加到森林中。</li>
+<li>第三步：重复第二步。
         <h2 id="哈夫曼编码"   >
           <a href="#哈夫曼编码" class="heading-link"><i class="fas fa-link"></i></a><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2>
-      <p>构建好哈夫曼树，左0右1，从上到下进行编码</p>
-
+      构建好哈夫曼树，左0右1，从上到下进行编码
         <h2 id="代码演示"   >
           <a href="#代码演示" class="heading-link"><i class="fas fa-link"></i></a><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2>
-      
+      </li>
+</ul>
+
         <h3 id="存储哈夫曼树"   >
           <a href="#存储哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a><a href="#存储哈夫曼树" class="headerlink" title="存储哈夫曼树"></a>存储哈夫曼树</h3>
-      <p>  typedef struct<br>  {</p>
-<pre><code>  int weight;//存储权值
-  int partent,LChild,RChild;//指向双亲和子节点
+      <pre><code>typedef struct 
+&#123;
+    int weight;//存储权值
+    int partent,LChild,RChild;//指向双亲和子节点
+&#125;HTCode，*HuffmanTree;//动态分配数组，用来存储哈夫曼树 HTCode和*HuffmanTree是一样的，只是来增加代码的可读性
 </code></pre>
-<p>  }HTCode，<em>HuffmanTree;//动态分配数组，用来存储哈夫曼树 HTCode和</em>HuffmanTree是一样的，只是未来曾加代码的可读性</p>
 
         <h3 id="存储哈夫曼编码"   >
           <a href="#存储哈夫曼编码" class="heading-link"><i class="fas fa-link"></i></a><a href="#存储哈夫曼编码" class="headerlink" title="存储哈夫曼编码"></a>存储哈夫曼编码</h3>
-      <p>  typedef char **HuffmanCode; //动态分布数组，指向字符指针的指针，存储哈夫曼编码</p>
+      <pre><code>typedef char **HuffmanCode; //动态分布数组，指向字符指针的指针，存储哈夫曼编码
+</code></pre>
 
         <h3 id="select函数"   >
           <a href="#select函数" class="heading-link"><i class="fas fa-link"></i></a><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h3>
-      <p>  void select(HuffmanTree ht,int n,int *s1,int *s2)<br>  {</p>
-<pre><code>  //在ht[1]~ht[n]范围内选择两个parent为0 且weight最小的结点，其序号分别赋值给s1、s2
-  int i;
-  *s1=*s2=1;
-  int main1=100000;
-  int min2=min1;
-  for(i=1;i&lt;=n;i++)
-  &#123;
-      if(ht[i].parent==0)
-      &#123;
-          if(ht[i].weight&lt;min1)
-          &#123;
-              *s2=*s1;
-              *s1=i;
-              min2=min1;
-              min1=ht[i].weight;
+      <pre><code>void select(HuffmanTree ht,int n,int *s1,int *s2)
+&#123;
+    //在ht[1]~ht[n]范围内选择两个parent为0 且weight最小的结点，其序号分别赋值给s1、s2
+    int i;
+    *s1=*s2=1;
+    int main1=100000;
+    int min2=min1;
+    for(i=1;i&lt;=n;i++)
+    &#123;
+        if(ht[i].parent==0)
+        &#123;
+            if(ht[i].weight&lt;min1)
+            &#123;
+                *s2=*s1;
+                *s1=i;
+                min2=min1;
+                min1=ht[i].weight;
 
-          &#125;
-          if(ht[i].weight&lt;min2)
-          &#123;
-              *s2=i;
-              min2=ht[i].weight;
-          &#125;
+            &#125;
+            if(ht[i].weight&lt;min2)
+            &#123;
+                *s2=i;
+                min2=ht[i].weight;
+            &#125;
 
-      &#125;
-  &#125;
+        &#125;
+    &#125;
+&#125;
 </code></pre>
-<p>  }</p>
 
         <h3 id="构造哈夫曼树"   >
           <a href="#构造哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a><a href="#构造哈夫曼树" class="headerlink" title="构造哈夫曼树"></a>构造哈夫曼树</h3>
-      <p>  void CrtHuffmanTree(HffmanTree ht,int *w,int n)<br>  {//构造哈夫曼树ht[m+1], w[]存放已知的n个权值</p>
-<pre><code>  int i,m,s1,s2;
-  for(i=1;i&lt;=n;i++) //1~n号单元存放叶子结点，初始化
-  &#123;
-      ht[i].weight=w[i];
-      ht[i].parent=ht[i].LChild=ht[i].RChild=0;
-  &#125;
-  m=2*n-1;
-  // 初始化完毕！以下创建非叶子结点，建哈夫曼树
-  for(i=n+1;i&lt;=m;i++)
-  &#123;
-      select(ht,i-1;&amp;s1,&amp;s2);
-      ht[i].weight=ht[s1].weight + ht[s2].weight;
-      ht[s1].parent=h[s2].parent=i;
-      ht[i].LChild = s1;  ht[i].RChild = s2;
-  &#125;
+      <pre><code>void CrtHuffmanTree(HffmanTree ht,int *w,int n)
+&#123;//构造哈夫曼树ht[m+1], w[]存放已知的n个权值
+    int i,m,s1,s2;
+    for(i=1;i&lt;=n;i++) //1~n号单元存放叶子结点，初始化
+    &#123;
+        ht[i].weight=w[i];
+        ht[i].parent=ht[i].LChild=ht[i].RChild=0;
+    &#125;
+    m=2*n-1;
+    // 初始化完毕！以下创建非叶子结点，建哈夫曼树
+    for(i=n+1;i&lt;=m;i++)
+    &#123;
+        select(ht,i-1;&amp;s1,&amp;s2);
+        ht[i].weight=ht[s1].weight + ht[s2].weight;
+        ht[s1].parent=h[s2].parent=i;
+        ht[i].LChild = s1;  ht[i].RChild = s2;
+    &#125;
+&#125;
 </code></pre>
-<p>  }</p>
 
         <h3 id="先序遍历哈夫曼树"   >
           <a href="#先序遍历哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a><a href="#先序遍历哈夫曼树" class="headerlink" title="先序遍历哈夫曼树"></a>先序遍历哈夫曼树</h3>
-      <p>  void PreOrderHuffman(HuffmanTree ht,int m)<br>  {</p>
-<pre><code>  //先序遍历哈夫曼树
-  int l,r;
-      printf(&quot;%5d&quot;,ht[m].weight);
-      l=ht[m].LChlid;
-      if(k!=0)
-          &#123;
-              PreOrderHuffman(ht,l);
-          &#125;
-      r=ht[m].RChild;
-      if(r!=0)
-      &#123;
-          PreOrderHuffman(ht,r);
-      &#125;          
+      <pre><code>void PreOrderHuffman(HuffmanTree ht,int m)
+&#123;
+    //先序遍历哈夫曼树
+    int l,r;
+        printf(&quot;%5d&quot;,ht[m].weight);
+        l=ht[m].LChlid;
+        if(k!=0)
+            &#123;
+                PreOrderHuffman(ht,l);
+            &#125;
+        r=ht[m].RChild;
+        if(r!=0)
+        &#123;
+            PreOrderHuffman(ht,r);
+        &#125;          
+&#125;
 </code></pre>
-<p>  }</p>
 
         <h3 id="求每个叶结点的哈夫曼编码"   >
           <a href="#求每个叶结点的哈夫曼编码" class="heading-link"><i class="fas fa-link"></i></a><a href="#求每个叶结点的哈夫曼编码" class="headerlink" title="求每个叶结点的哈夫曼编码"></a>求每个叶结点的哈夫曼编码</h3>
-      <p>  void CrtHuffmanCode(HuffmanTree ht, HuffmanCode hc, int n)<br>  {//从叶子结点到根，逆向求每个节点所对应的哈夫曼编码</p>
-<pre><code>  char *cd;
-  int i,start,p,c;
-  cd=(char *)malloc(n*sizeof(char));// 分配求当前编码的工作空间
-  cd[n-1]=&#39;\0&#39;;// 从右向左逐位存放编码，首先存放编码结束符
-  for(i=1;i&lt;=;i++) // 求n个叶子结点对应的哈夫曼编码
-  &#123;
-      start=n-1;//初始化编码起始指针
-      for(c=i,p=ht[i].parent;p!=0;c=p,p=ht[p].parent) //从叶子到根结点求编码
-          cd=[--start]=((ht[p].LChild==c)? &#39;0&#39;:&#39;1&#39;);//左分支标0，右分支标1
-      hc[i]=(char*)malloc((n-start)*sizeof(char));      // 为第i个编码分配空间
-      strcpy(hc[i],&amp;cd[start]);
-  &#125;
-  free(cd);
+      <pre><code>void CrtHuffmanCode(HuffmanTree ht, HuffmanCode hc, int n)
+&#123;//从叶子结点到根，逆向求每个节点所对应的哈夫曼编码
+    char *cd;
+    int i,start,p,c;
+    cd=(char *)malloc(n*sizeof(char));// 分配求当前编码的工作空间
+    cd[n-1]=&#39;\0&#39;;// 从右向左逐位存放编码，首先存放编码结束符
+    for(i=1;i&lt;=;i++) // 求n个叶子结点对应的哈夫曼编码
+    &#123;
+        start=n-1;//初始化编码起始指针
+        for(c=i,p=ht[i].parent;p!=0;c=p,p=ht[p].parent) //从叶子到根结点求编码
+            cd=[--start]=((ht[p].LChild==c)? &#39;0&#39;:&#39;1&#39;);//左分支标0，右分支标1
+        hc[i]=(char*)malloc((n-start)*sizeof(char));      // 为第i个编码分配空间
+        strcpy(hc[i],&amp;cd[start]);
+    &#125;
+    free(cd);
+
+&#125;
 </code></pre>
-<p>  }</p>
 
         <h3 id="主函数"   >
           <a href="#主函数" class="heading-link"><i class="fas fa-link"></i></a><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3>
-      <p>  int main(){</p>
-<pre><code>  HuffmanTree HT; HuffmanCode HC;
-  int 1,n,m; int *w;
-  char ch;
-  n=0;
-  //输入叶子结点数及权重
-  printf(&quot;Input the number of total leaf of Huffman Tree:&quot;);
-  scanf(&quot;%d&quot;,&amp;n);
-  m=2*n-1;
-  HT=(HuffmanTree )malloc((m+1)*sizeof(HTNode));
-  HC=(HuffmanCode)malloc((n)*sizeof(HTNode));
-  w=(int *)malloc((n+1)*sizeof(int));  // 0号单元未使用
-  for (i=1; i&lt;=n; i++)
-  &#123;
-       printf(&quot;Input the %d element&#39;s weight:&quot;,i);
-       scanf(&quot;%d&quot;,&amp;w[i]);  // 依次输入5 7 3 2 8
+      <pre><code>int main()&#123;
+    HuffmanTree HT; HuffmanCode HC;
+    int 1,n,m; int *w;
+    char ch;
+    n=0;
+    //输入叶子结点数及权重
+    printf(&quot;Input the number of total leaf of Huffman Tree:&quot;);
+    scanf(&quot;%d&quot;,&amp;n);
+    m=2*n-1;
+    HT=(HuffmanTree )malloc((m+1)*sizeof(HTNode));
+    HC=(HuffmanCode)malloc((n)*sizeof(HTNode));
+    w=(int *)malloc((n+1)*sizeof(int));  // 0号单元未使用
+    for (i=1; i&lt;=n; i++)
+    &#123;
+         printf(&quot;Input the %d element&#39;s weight:&quot;,i);
+         scanf(&quot;%d&quot;,&amp;w[i]);  // 依次输入5 7 3 2 8
 
-  &#125;
-  // 生成哈夫曼树并输出
-  CrtHuffmanTree( HT,w,  n);
-  for (i=1; i&lt;=m; i++)
-  &#123;
-      printf(&quot;\n%5d%5d%5d%5d&quot;, HT[i].weight, HT[i].parent,HT[i].LChild, HT[i].RChild);&#125;
+    &#125;
+    // 生成哈夫曼树并输出
+    CrtHuffmanTree( HT,w,  n);
+    for (i=1; i&lt;=m; i++)
+    &#123;
+        printf(&quot;\n%5d%5d%5d%5d&quot;, HT[i].weight, HT[i].parent,HT[i].LChild, HT[i].RChild);&#125;
 
-  &#125;
-   printf(&quot;\n\n&quot;);
-   // 先序遍历哈夫曼树
-   PreOrderHuffman(HT,m);  printf(&quot;\n\n&quot;);
-   // 生成哈夫曼编码并输出
-   CrtHuffmanCode(HT, HC, n);
-  for (i=1; i&lt;=n; i++)
-      printf(&quot;%d编码为%s\n&quot;, HT[i].weight,HC[i]);
-  getchar();  getchar();
-  return 0;
+    &#125;
+     printf(&quot;\n\n&quot;);
+     // 先序遍历哈夫曼树
+     PreOrderHuffman(HT,m);  printf(&quot;\n\n&quot;);
+     // 生成哈夫曼编码并输出
+     CrtHuffmanCode(HT, HC, n);
+    for (i=1; i&lt;=n; i++)
+        printf(&quot;%d编码为%s\n&quot;, HT[i].weight,HC[i]);
+    getchar();  getchar();
+    return 0;
+&#125;
 </code></pre>
-<p>  }</p>
 
         <h2 id="相关问题"   >
           <a href="#相关问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2>
       
         <h3 id="1-为什么要保证长编码不与短编码冲突？"   >
           <a href="#1-为什么要保证长编码不与短编码冲突？" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-为什么要保证长编码不与短编码冲突？" class="headerlink" title="1. 为什么要保证长编码不与短编码冲突？"></a>1. 为什么要保证长编码不与短编码冲突？</h3>
-      <p>冲突情况：如果我们已经确定D，E，F，G 用 01 ，010 ，10，001的2进制编码来传输了。那么想传送FED时，我需要传送     1001001，接收方可以把它解析为FDG（10 01 001），当然也能解析为FED（10 010 01），他两编码一样的，这就是编码冲突，（这里编码冲突的原因，也是因为编码时，D的编码是E的编码的左起子串了）显然这是不行的，就像我说压脉带，你如果是日本人会理解为 （你懂得），这就是发出同一种语，得出不同的意的情况。所以不能让一个字母的二进制代表数，为另一个字母的二进制代表数的子串。但为什么实际情况只要求编码时，一个编码不是另一编码的左起子串呢而不是绝对意义上的非子串呢，因为计算机从数字串的左边开始读，如果从右边读，那么可以要求是非右起（无奈）。你又可以问了为什么编码要求是非左起或非右起不直接规定不能是子串呢（也行，不过=&gt;），比如说原文中B就是C，F，G的子串，那这不就不符合规则了么。这里是为了哈夫曼的根本目的，优化编码位占用问题，如果完全不能有任何子串那么编码将会非常庞大。但这里计算机是一位一位的·读取编码的，只需要保证计算机在读取中不会误判就行。并且编码占用最少。</p>
-</li>
-</ul>
+      <p>  冲突情况：如果我们已经确定D，E，F，G 用 01 ，010 ，10，001的2进制编码来传输了。那么想传送FED时，我需要传送     1001001，接收方可以把它解析为FDG（10 01 001），当然也能解析为FED（10 010 01），他两编码一样的，这就是编码冲突，（这里编码冲突的原因，也是因为编码时，D的编码是E的编码的左起子串了）显然这是不行的，就像我说压脉带，你如果是日本人会理解为 （你懂得），这就是发出同一种语，得出不同的意的情况。所以不能让一个字母的二进制代表数，为另一个字母的二进制代表数的子串。但为什么实际情况只要求编码时，一个编码不是另一编码的左起子串呢而不是绝对意义上的非子串呢，因为计算机从数字串的左边开始读，如果从右边读，那么可以要求是非右起（无奈）。你又可以问了为什么编码要求是非左起或非右起不直接规定不能是子串呢（也行，不过=&gt;），比如说原文中B就是C，F，G的子串，那这不就不符合规则了么。这里是为了哈夫曼的根本目的，优化编码位占用问题，如果完全不能有任何子串那么编码将会非常庞大。但这里计算机是一位一位的·读取编码的，只需要保证计算机在读取中不会误判就行。并且编码占用最少。</p>
 <blockquote>
 <p>code：0110101001110</p>
 </blockquote>
@@ -231,7 +234,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
       <p>  这里要说一下哈夫曼树的构造并不是唯一的。但是他们构成的哈夫曼树的带权路径长度是相同的。</p>
 <hr>
 <p>参考链接：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29519041/article/details/81428934" >https://blog.csdn.net/qq_29519041/article/details/81428934</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://example.com">Lu Xiaohei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://example.com/2021/05/07/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">http://example.com/2021/05/07/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/"><span class="paginator-prev__text">三门问题</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91"><span class="toc-number">1.</span> <span class="toc-text">
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://example.com">Lu Xiaohei</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://example.com/2021/05/07/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/">http://example.com/2021/05/07/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat, douban, linkedin, facebook, twitter, google">Share to: </div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/05/07/%E6%88%91%E4%BB%AC/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">我们</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/05/%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98/"><span class="paginator-prev__text">三门问题</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91"><span class="toc-number">1.</span> <span class="toc-text">
           哈夫曼树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91-1"><span class="toc-number">1.1.</span> <span class="toc-text">
           哈夫曼树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.1.</span> <span class="toc-text">
           介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.2.</span> <span class="toc-text">
@@ -249,4 +252,4 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
           相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BF%9D%E8%AF%81%E9%95%BF%E7%BC%96%E7%A0%81%E4%B8%8D%E4%B8%8E%E7%9F%AD%E7%BC%96%E7%A0%81%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="toc-number">1.4.1.</span> <span class="toc-text">
           1. 为什么要保证长编码不与短编码冲突？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%82%A3%E4%B9%88%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E6%80%8E%E4%B9%88%E9%81%BF%E5%85%8D%E5%B7%A6%E8%B5%B7%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98%E5%91%A2%EF%BC%9F"><span class="toc-number">1.4.2.</span> <span class="toc-text">
           2. 那么哈夫曼树怎么避免左起子串问题呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%99%E9%87%8C%E8%A6%81%E6%8F%90%E4%B8%80%E4%B8%8B%E5%90%8C%E6%9D%83%E4%B8%8D%E5%90%8C%E6%9E%84"><span class="toc-number">1.4.3.</span> <span class="toc-text">
-          3. 这里要提一下同权不同构</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/头像.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Lu Xiaohei</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="/images/wechat.png" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1147300279" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:1147300279@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">邮</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Lu Xiaohei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
+          3. 这里要提一下同权不同构</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/头像.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Lu Xiaohei</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://www.zhihu.com/" target="_blank" rel="noopener" data-popover="知乎" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">知</span></a><a class="sidebar-ov-social-item" href="/images/wechat.png" target="_blank" rel="noopener" data-popover="微信" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-weixin"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=1147300279" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a><a class="sidebar-ov-social-item" href="mailto:1147300279@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">邮</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Lu Xiaohei</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.4.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script></body></html>
